@@ -32,6 +32,9 @@ def expand_to_aspect_ratio(input_shape, target_aspect_ratio=None):
         breakpoint()
     return np.array([w_new, h_new])
 
+def expand_bbox_to_aspect_ratio(input_shape, target_aspect_ratio=None):
+    expand_to_aspect_ratio(input_shape, target_aspect_ratio)
+
 def do_augmentation(aug_config: CfgNode) -> Tuple:
     """
     Compute random augmentation parameters.
