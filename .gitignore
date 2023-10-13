@@ -147,3 +147,7 @@ dmypy.json
 .pyre/
 /checkpoints/
 /data/
+
+outputs
+.ipynb_checkpoints
+condaenv.92qzb5n0.requirements.txt
