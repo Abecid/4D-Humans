@@ -2,6 +2,7 @@ import os
 import subprocess
 import sys
 
+from tqdm import tqdm
 import cv2
 
 def extract_median_frame(video_folder, output_folder):
@@ -39,7 +40,7 @@ def main():
         base_dir = sys.argv[1]
     subreddit_folders = [os.path.join(base_dir, d) for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
 
-    for subreddit_folder in subreddit_folders:
+    for subreddit_folder in tqdm(subreddit_folders, desc="Processing Subreddits"):
         video_folder = os.path.join(subreddit_folder, "videos")
         images_folder = os.path.join(subreddit_folder, "images")
         

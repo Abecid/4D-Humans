@@ -23,6 +23,7 @@ dependencies:
     - chumpy
     - pandas
     - git+https://github.com/facebookresearch/detectron2
+    - tqdm
 
     # For training
     - rich
