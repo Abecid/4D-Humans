@@ -41,6 +41,7 @@ def main():
     subreddit_folders = [os.path.join(base_dir, d) for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
 
     for subreddit_folder in tqdm(subreddit_folders, desc="Processing Subreddits"):
+        print(f"Processing {subreddit_folder}")
         video_folder = os.path.join(subreddit_folder, "videos")
         images_folder = os.path.join(subreddit_folder, "images")
         
