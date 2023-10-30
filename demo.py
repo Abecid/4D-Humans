@@ -4,6 +4,7 @@ import argparse
 import os
 import cv2
 import numpy as np
+from tqdm import tqdm
 
 from hmr2.configs import CACHE_DIR_4DHUMANS
 from hmr2.models import HMR2, download_models, load_hmr2, DEFAULT_CHECKPOINT
@@ -56,7 +57,7 @@ def main():
     img_paths = [img for end in args.file_type for img in Path(args.img_folder).glob(end)]
     
     # Iterate over all images in folder
-    for img_path in img_paths:
+    for img_path in tqdm(img_paths):
         img_cv2 = cv2.imread(str(img_path))
 
         # Detect humans in image
