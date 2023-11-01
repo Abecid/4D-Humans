@@ -58,7 +58,7 @@ def main():
     img_paths = [img for end in args.file_type for img in Path(args.img_folder).glob(end)]
     
     # Iterate over all images in folder
-    for img_path in tqdm(img_paths):
+    for img_path in tqdm(img_paths, desc="Processing Images"):
         img_cv2 = cv2.imread(str(img_path))
 
         # Detect humans in image
