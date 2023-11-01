@@ -24,6 +24,7 @@ def main():
     parser.add_argument('--save_mesh', dest='save_mesh', action='store_true', default=False, help='If set, save meshes to disk also')
     parser.add_argument('--batch_size', type=int, default=1, help='Batch size for inference/fitting')
     parser.add_argument('--file_type', nargs='+', default=['*.jpg', '*.png'], help='List of file extensions to consider')
+    parser.add_argument('--save_pose', dest='save_pose', action='store_true', default=False, help='If set, save pose embeddings to disk also')
 
     args = parser.parse_args()
 
@@ -122,14 +123,17 @@ def main():
                 all_verts.append(verts)
                 all_cam_t.append(cam_t)
                 
-                keypoints_3d = out["pred_keypoints_3d"][n].detach().cpu().numpy()
-                print(f"3D Key points Shape:\n{keypoints_3d.shape}")
+                keypoints_3d = out["pred_keypoints_3d"][n].detach().cpu().numpy() # (44, 3)
+                # print(f"3D Key points Shape:\n{keypoints_3d.shape}")
 
                 # Save all meshes to disk
                 if args.save_mesh:
                     camera_translation = cam_t.copy()
                     tmesh = renderer.vertices_to_trimesh(verts, camera_translation, LIGHT_BLUE)
                     tmesh.export(os.path.join(args.out_folder, f'{img_fn}_{person_id}.obj'))
+                    
+                if args.save_pose:
+                    np.save(os.path.join(args.out_folder, f'{img_fn}_{person_id}.npy'), keypoints_3d)
 
         # Render front view
         if args.full_frame and len(all_verts) > 0:

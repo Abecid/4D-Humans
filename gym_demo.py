@@ -29,7 +29,7 @@ def run_demo_script(img_folder):
         "python", "demo.py",
         "--img_folder", img_folder,
         "--out_folder", "demo_out",
-        "--batch_size=48", "--side_view", "--save_mesh", "--full_frame"
+        "--batch_size=48", "--side_view", "--save_pose" # "--save_mesh", "--full_frame"
     ]
     subprocess.run(cmd)
 
