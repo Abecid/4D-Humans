@@ -121,6 +121,9 @@ def main():
                 cam_t = pred_cam_t_full[n]
                 all_verts.append(verts)
                 all_cam_t.append(cam_t)
+                
+                keypoints_3d = out["pred_keypoints_3d"][n].detach().cpu().numpy()
+                print(f"3D Key points Shape:\n{keypoints_3d.shape}")
 
                 # Save all meshes to disk
                 if args.save_mesh:
