@@ -39,7 +39,7 @@ class HMR2Predictor(HMR2018Predictor):
     def forward(self, x):
         hmar_out = self.hmar_old(x)
         
-        x = x.to(self.device)
+        x = x.to(device)
         batch = {
             'img': x[:,:3,:,:],
             'mask': (x[:,3,:,:]).clip(0,1),
