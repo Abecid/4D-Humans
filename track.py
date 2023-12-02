@@ -33,7 +33,7 @@ class HMR2Predictor(HMR2018Predictor):
         model, _ = load_hmr2()
 
         # self.model = model
-        self.model = model.to(self.device)
+        self.model = model.to(device)
         self.model.eval()
 
     def forward(self, x):
