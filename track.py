@@ -2,6 +2,8 @@ import warnings
 from dataclasses import dataclass
 from typing import Optional
 
+import torch
+
 import hydra
 from hydra.core.config_store import ConfigStore
 from omegaconf import DictConfig
@@ -15,6 +17,11 @@ warnings.filterwarnings('ignore')
 
 log = get_pylogger(__name__)
 
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+print(f"Using device: {device}")
+
+
 class HMR2Predictor(HMR2018Predictor):
     def __init__(self, cfg) -> None:
         super().__init__(cfg)
@@ -25,11 +32,14 @@ class HMR2Predictor(HMR2018Predictor):
         download_models()
         model, _ = load_hmr2()
 
-        self.model = model
+        # self.model = model
+        self.model = model.to(self.device)
         self.model.eval()
 
     def forward(self, x):
         hmar_out = self.hmar_old(x)
+        
+        x = x.to(self.device)
         batch = {
             'img': x[:,:3,:,:],
             'mask': (x[:,3,:,:]).clip(0,1),
