@@ -32,14 +32,14 @@ class HMR2Predictor(HMR2018Predictor):
         download_models()
         model, _ = load_hmr2()
 
-        # self.model = model
-        self.model = model.to(device)
+        self.model = model
+        # self.model = model.to(device)
         self.model.eval()
 
     def forward(self, x):
         hmar_out = self.hmar_old(x)
         
-        x = x.to(device)
+        # x = x.to(device)
         batch = {
             'img': x[:,:3,:,:],
             'mask': (x[:,3,:,:]).clip(0,1),
